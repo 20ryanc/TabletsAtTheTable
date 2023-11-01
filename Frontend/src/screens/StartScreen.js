@@ -11,7 +11,7 @@ export default function StartScreen({ navigation }) {
       <Logo />
       <Header>Welcome!</Header>
       <Paragraph>
-        Start writing your TO-DO list!
+        Start writing your Tablets At The Table!
       </Paragraph>
       <Button
         mode="contained"
