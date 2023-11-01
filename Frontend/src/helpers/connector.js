@@ -5,8 +5,7 @@ import{ CookieJar } from 'tough-cookie';
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
 
-// Heroku deploy: https://cs4261todolist.herokuapp.com/
-var host = "https://cs4261todolist.herokuapp.com";
+var host = "http://10.12.10.128:8080";
 
 var url = host + "/api/v1/";
 
