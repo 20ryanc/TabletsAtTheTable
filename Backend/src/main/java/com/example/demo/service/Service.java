@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.dao.ItemRepository;
 import com.example.demo.dao.OrderRepository;
+import com.example.demo.dao.TasteRepository;
 import com.example.demo.model.Item;
 import com.example.demo.model.Order;
+import com.example.demo.model.Taste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +19,13 @@ import java.util.Optional;
 public class Service {
     private OrderRepository orderRepository;
     private ItemRepository itemRepository;
+    private TasteRepository tasteRepository;
 
     @Autowired
-    public Service(OrderRepository orderRepository, ItemRepository itemRepository) {
+    public Service(OrderRepository orderRepository, ItemRepository itemRepository, TasteRepository tasteRepository) {
         this.orderRepository = orderRepository;
         this.itemRepository = itemRepository;
+        this.tasteRepository = tasteRepository;
     }
 
     public Optional<Order> getOrder(Long id){
@@ -60,6 +64,17 @@ public class Service {
             if(!temp.isEmpty()){
                 ret.add(temp.get());
             }
+        }
+        return ret;
+    }
+
+    public Optional<Long> getTasteID(String taste){
+        List<Taste> tasteId = tasteRepository.findTasteId(taste);
+        Optional<Long> ret;
+        if(tasteId.isEmpty()){
+            ret = Optional.empty();
+        }else{
+            ret = Optional.of(tasteId.get(0).getId());
         }
         return ret;
     }

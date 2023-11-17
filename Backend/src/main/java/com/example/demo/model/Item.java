@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -17,16 +18,17 @@ public class Item {
     @JsonProperty("category")
     @NotBlank
     private String category;
-    @JsonProperty("price")
-    private Double price;
+    @JsonProperty("tastes")
+    @ElementCollection
+    private List<Long> tastes;
 
     public Item() {
     }
 
-    public Item(String name, String category, Double price) {
+    public Item(String name, String category, List<Long> tastes) {
         this.name = name;
-        this.price = price;
         this.category = category;
+        this.tastes = tastes;
     }
 
     public Long getId() {
@@ -41,7 +43,7 @@ public class Item {
         return category;
     }
 
-    public Double getPrice() {
-        return price;
+    public List<Long> getTastes() {
+        return tastes;
     }
 }
