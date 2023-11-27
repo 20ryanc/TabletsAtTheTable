@@ -5,9 +5,35 @@ import{ CookieJar } from 'tough-cookie';
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
 
-var host = "http://10.12.10.128:8080";
+var host = "http://10.12.10.70:8080";
 
 var url = host + "/api/v1/";
+
+export async function getMenuItems() {
+	let content = await client({
+		method: 'get',
+		url: url + "getAllItems",
+	});
+	return content;
+}
+
+export async function getRecommendation(data) {
+	let content = await client({
+		method: 'post',
+		url: url + "getRecommendation",
+		data: data
+	});
+	return content;
+}
+
+export async function submitOrder(data) {
+	let content = await client({
+		method: 'post',
+		url: url + "InsertOrder",
+		data: data
+	});
+	return content;
+}
 
 export async function register(email, password){
 
@@ -21,6 +47,8 @@ export async function register(email, password){
       });
     return content;
 }
+
+
 
 export async function userdel(){
 

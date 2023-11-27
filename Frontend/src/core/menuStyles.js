@@ -12,10 +12,12 @@ export const menuStyles = StyleSheet.create({
         flex: 1, // Takes up 50% of the available space
     },
     topBar: {
+        flexDirection: 'row',
         height: 80,
         backgroundColor: 'grey',
-        justifyContent: 'center', // Center content vertically within the top bar
+        justifyContent: 'space-between', // Center content vertically within the top bar
         alignItems: 'center', // Center content horizontally within the top bar
+        padding: 10,
     },
     horizontalScrollView: {
         marginTop: 10,
@@ -129,4 +131,28 @@ export const menuStyles = StyleSheet.create({
         flex: 1, // Ensure the ScrollView takes the available space
         backgroundColor: 'lightgrey',
     },
+    cartContainer: {
+        flex: 1,
+        padding: 20,
+      },
+    cartItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        paddingVertical: 10,
+      },
+      quantityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      quantityText: {
+        paddingHorizontal: 10,
+      },
+      quantityButton: {
+        fontSize: 20,
+        paddingHorizontal: 8,
+        color: 'blue',
+      },
 })
