@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, Button, Modal, Pressable, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, TextInput, Keyboard, ScrollView, SafeAreaView } from 'react-native'
 import { menuStyles } from '../core/menuStyles'
-import { getMenuItems, getRecommendation } from '../helpers/connector';
+import { getMenuItems, getRecommendation, submitOrder} from '../helpers/connector';
 
 export default function Menu({ navigation }) {
     const [category, setCategory] = useState('main');
@@ -127,6 +127,35 @@ export default function Menu({ navigation }) {
         </View>
     );
 
+    const clearAllSelections = () => {
+        setCartItems([]);
+    };
+
+    const submitOrderItems = React.useCallback(() => {
+        const totalCounts = customerFeatures.reduce((acc, feature) => {
+            acc[feature.id] = feature.count.toString();
+            return acc;
+        }, {});
+        let selectedItemsArray = [];
+        cartItems.forEach((item) => {
+            for (i=0; i<item.quantity; i++) {
+                selectedItemsArray = [...selectedItemsArray, item.id];
+            }
+        });
+        const data = {
+            ...totalCounts,
+            items: selectedItemsArray.join(',')
+        };
+        console.log(data);
+        setCartItems(() => []); // Use the function form of the state updater
+        setCustomerFeatres(() => initCustomerFeatures);
+        submitOrder(data).then((content)=>{
+            console.log(content.data);
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }, [cartItems, customerFeatures]);
+
     React.useEffect(() => {
         console.log(insights);
     }, [insights]);
@@ -142,7 +171,6 @@ export default function Menu({ navigation }) {
                     <TouchableOpacity onPress={() => setIsMenu(false)}>
                         <Text>Shopping Cart</Text>
                     </TouchableOpacity>
-                    <Text>Menu</Text>
                 </View>
                 <View style={menuStyles.horizontalScrollView}>
                     <FlatList
@@ -177,7 +205,6 @@ export default function Menu({ navigation }) {
                         <TouchableOpacity onPress={() => setIsMenu(true)}>
                             <Text>Back</Text>
                         </TouchableOpacity>
-                        <Text>Shopping Cart</Text>
                     </View>
                     <View style={menuStyles.cartContainer}>
                         <FlatList
@@ -186,12 +213,19 @@ export default function Menu({ navigation }) {
                             renderItem={renderItem}
                         />
                     </View>
+                    <View style={menuStyles.clearButtonContainer}>
+                        <Button title="Clear All" onPress={clearAllSelections} />
+                    </View>
+                    <View style={menuStyles.submitButtonContainer}>
+                        <Button title="Submit Order" onPress={() => submitOrderItems()} />
+                    </View>
                 </View>
             )}
 
             <View style={menuStyles.recContainer}>
                 <View style={menuStyles.buttonContainer}>
-                    <TouchableOpacity style={menuStyles.button} onPress={() => setCustomerFeatres(initCustomerFeatures)}>
+                    <TouchableOpacity style={menuStyles.button} onPress={() => {setCustomerFeatres(initCustomerFeatures);
+                    setInsights([]);}}>
                         <Text>Reset</Text>
                     </TouchableOpacity>
                     <View style={menuStyles.buttonGroup}>

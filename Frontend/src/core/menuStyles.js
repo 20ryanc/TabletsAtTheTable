@@ -155,4 +155,18 @@ export const menuStyles = StyleSheet.create({
         paddingHorizontal: 8,
         color: 'blue',
       },
+      clearButtonContainer: {
+        position: 'absolute',
+        bottom: 20,
+        left: 20,
+        backgroundColor: 'white',
+        borderColor: 'black',
+      },
+      submitButtonContainer: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: 'white',
+        borderColor: 'black',
+      },
 })
