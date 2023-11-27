@@ -4,7 +4,6 @@ import com.example.demo.model.Order;
 import com.example.demo.model.OrderTmp;
 import com.example.demo.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -31,7 +30,7 @@ public class API {
         Integer old_adults = Integer.parseInt(body.get("old_adults"));
         List<Long> order_items = new ArrayList<>();
         for (String str : body.get("items").split(",")) {
-            order_items.add(Long.parseLong(str));
+            order_items.add(Long.parseLong(str.strip()));
         }
         Order order = new Order(group_size, female, male, babies, children, young_adults, middle_age_adults, old_adults, order_items);
         service.addOrder(order);
@@ -105,7 +104,10 @@ public class API {
             }
             score_list.add(new AbstractMap.SimpleEntry<>(item, score));
         }
-        Collections.sort(score_list, (a, b)-> Integer.compare(b.getValue(), a.getValue()));
+        Collections.sort(score_list, (a, b)-> {
+            int comp = Integer.compare(b.getValue(), a.getValue());
+            return comp == 0 ? (int)(Math.random() * 2) == 0? -1 : 1 : comp;
+        });
         List<Item> ret = new ArrayList<>();
         for(int i = 0; i < 5; i++){
             ret.add(score_list.get(i).getKey());
