@@ -63,6 +63,12 @@ export const menuStyles = StyleSheet.create({
         backgroundColor: 'lightgrey',
         borderRadius: 5,
     },
+    backButton: {
+      padding: 10,
+      marginHorizontal: 5,
+      backgroundColor: 'white',
+      borderRadius: 5,
+    },
     customerFeature: {
         padding: 10,
         flexDirection: 'col',

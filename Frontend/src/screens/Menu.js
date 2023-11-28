@@ -178,7 +178,7 @@ export default function Menu({ navigation }) {
         <View style={menuStyles.container}>
             {isMenu && (<View style={menuStyles.menuContainer}>
                 <View style={menuStyles.topBar}>
-                    <TouchableOpacity onPress={() => setIsMenu(false)}>
+                    <TouchableOpacity style={menuStyles.backButton} onPress={() => setIsMenu(false)}>
                         <Text>Shopping Cart</Text>
                     </TouchableOpacity>
                 </View>
@@ -212,7 +212,7 @@ export default function Menu({ navigation }) {
             {!isMenu && (
                 <View style={menuStyles.menuContainer}>
                     <View style={menuStyles.topBar}>
-                        <TouchableOpacity onPress={() => setIsMenu(true)}>
+                        <TouchableOpacity style={menuStyles.backButton} onPress={() => setIsMenu(true)}>
                             <Text>Back</Text>
                         </TouchableOpacity>
                     </View>
