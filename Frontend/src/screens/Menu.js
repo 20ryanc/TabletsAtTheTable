@@ -30,6 +30,12 @@ export default function Menu({ navigation }) {
         });
     }, [setFoodMap]);
 
+    const customerFeatureCategory = [
+        { type: 'Group Size', featureId: ['group_size'] },
+        { type: 'Gender', featureId: ['female', 'male'] },
+        { type: 'Age', featureId: ['children', 'young_adults', 'middle_age_adults', 'old_adults'] }
+    ];
+
     const initCustomerFeatures = [
         { id: 'group_size', name: 'Group Size', count: 0 },
         { id: 'female', name: 'Female', count: 0 },
@@ -82,6 +88,9 @@ export default function Menu({ navigation }) {
             }
         })
         console.log(selectedItemsArray);
+        if (selectedItemsArray.length == 0) {
+            return; // 
+        }
         const data = {
             ...totalCounts,
             items: selectedItemsArray.join(',')
@@ -149,6 +158,7 @@ export default function Menu({ navigation }) {
         console.log(data);
         setCartItems(() => []); // Use the function form of the state updater
         setCustomerFeatres(() => initCustomerFeatures);
+        setInsights(() => []);
         submitOrder(data).then((content)=>{
             console.log(content.data);
         }).catch((error)=>{
@@ -238,12 +248,22 @@ export default function Menu({ navigation }) {
                     </View>
                 </View>
                 <View style={menuStyles.customerFeature}>
-                    {customerFeatures.map((feature) => (
-                        <View key={feature.id} style={menuStyles.featureItem}>
-                            <TouchableOpacity style={[menuStyles.featureTouchable, {backgroundColor: feature.id === currFeature ? 'yellow' : 'lightyellow'}]} onPress={() => setCurrFeature(feature.id)}>
-                                <Text>{feature.name}</Text>
-                            </TouchableOpacity>
-                            <Text>{feature.count}</Text>
+                    {customerFeatureCategory.map((category) => (
+                        <View key={category.type}>
+                            <Text>{category.type}</Text>
+                            <View style={menuStyles.featureContainer}>
+                            {category.featureId.map((featureId) => {
+                                const feature = customerFeatures.find((f) => f.id === featureId);
+                                return (
+                                    <View key={feature.id} style={menuStyles.featureItem}>
+                                        <TouchableOpacity style={[menuStyles.featureTouchable, {backgroundColor: feature.id === currFeature ? 'yellow' : 'lightyellow'}]} onPress={() => setCurrFeature(feature.id)}>
+                                             <Text>{feature.name}</Text>
+                                         </TouchableOpacity>
+                                        <Text>{feature.count}</Text>
+                                    </View>
+                                );
+                             })}
+                             </View>
                         </View>
                     ))}
                 </View>
@@ -255,7 +275,7 @@ export default function Menu({ navigation }) {
                 <ScrollView style={menuStyles.scrollView}>
                     <View style={menuStyles.insightContainer}>
                         {insights.map((insight) => (
-                            <TouchableOpacity style={menuStyles.insightItem} onPress={() => addItem(insight.id, insight.name)}>
+                            <TouchableOpacity key={insight.id} style={menuStyles.insightItem} onPress={() => addItem(insight.id, insight.name)}>
                                 <Text>{insight.name}</Text>
                             </TouchableOpacity>
                         ))}

@@ -65,9 +65,13 @@ export const menuStyles = StyleSheet.create({
     },
     customerFeature: {
         padding: 10,
-        flexDirection: 'row',
+        flexDirection: 'col',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+    },
+    featureContainer: {
+      flexDirection: 'row',
+      padding: 5,
     },
     featureItem: {
         width: 134, // Set the width to achieve 4 items in each row with some spacing
@@ -75,6 +79,7 @@ export const menuStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 10,
+        marginHorizontal: 5,
     },
     featureTouchable: {
         width: 134,

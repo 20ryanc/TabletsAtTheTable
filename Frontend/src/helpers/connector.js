@@ -5,7 +5,7 @@ import{ CookieJar } from 'tough-cookie';
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
 
-var host = "http://10.12.10.70:8080";
+var host = "http://128.61.69.39:8080";
 
 var url = host + "/api/v1/";
 
