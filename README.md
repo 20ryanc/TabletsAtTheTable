@@ -1,10 +1,3 @@
-# CS4261 HW1: Minimalistic Program Project
-
-## Credits
-Frontend template credit https://github.com/venits/react-native-login-template
-
-Backend refactored from https://github.com/20ryanc/Note-Backend
-
 ## Frontend Access
 1. Download Nodejs onto your computer and make sure npm is working. 
 2. Install yarn using ```npm install --global yarn```
@@ -15,9 +8,6 @@ Backend refactored from https://github.com/20ryanc/Note-Backend
 ## Run App on iPhone
 1. Download ```expo``` from iOS App Store
 2. Follow the instruction displayed in the terminal after running ```npx expo start```
-
-## Online Backend Access
-https://todolistapphw1.herokuapp.com
 
 ## Raw Backend Access (Using Intellj)
 1. Open backend folder using Intellj
